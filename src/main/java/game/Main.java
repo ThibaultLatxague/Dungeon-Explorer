@@ -3,12 +3,9 @@ package game;
 import engine.core.*;
 import engine.graphics.*;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class Main {
 
-    public static void main(String[] args) {
+    static void main() {
 
         Window window = new Window(1280, 720, "Dungeon Explorer");
         window.create();

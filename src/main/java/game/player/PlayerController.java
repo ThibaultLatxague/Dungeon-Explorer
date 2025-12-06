@@ -1,0 +1,109 @@
+package game.player;
+
+import engine.core.Input;
+import game.utils.Timer;
+import static org.lwjgl.glfw.GLFW.*;
+
+public class PlayerController {
+
+    private final Player player;
+    private final Input input;
+
+    // ========================
+    // CONFIG
+    // ========================
+    private float baseSpeed = 3.5f;   // vitesse normale
+    private float sprintMultiplier = 1.8f;
+
+    // ========================
+    // STATE
+    // ========================
+    private float velocityX = 0;
+    private float velocityY = 0;
+
+    public PlayerController(Player player, Input input) {
+        this.player = player;
+        this.input = input;
+    }
+
+    /**
+     * Appelée à chaque frame depuis ta GameLoop
+     */
+    public void update(float deltaTime) {
+        handleMovement(deltaTime);
+        applyMovement(deltaTime);
+    }
+
+    // ========================
+    // MOVEMENT
+    // ========================
+
+    private void handleMovement(float deltaTime) {
+
+        velocityX = 0;
+        velocityY = 0;
+
+        float speed = baseSpeed;
+
+        if (input.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
+            speed *= sprintMultiplier;
+        }
+
+        if (input.up()) {
+            velocityY += speed;
+        }
+
+        if (input.down()) {
+            velocityY -= speed;
+        }
+
+        if (input.left()) {
+            velocityX -= speed;
+        }
+
+        if (input.right()) {
+            velocityX += speed;
+        }
+
+        normalizeDiagonal(speed);
+    }
+
+    private void applyMovement(float deltaTime) {
+        float newX = player.getX() + velocityX * deltaTime;
+        float newY = player.getY() + velocityY * deltaTime;
+
+        // Future : gestion collisions ici
+        player.setPosition(newX, newY);
+    }
+
+    /**
+     * Empêche la vitesse diagonale d’être plus rapide que la normale
+     */
+    private void normalizeDiagonal(float speed) {
+        if (velocityX != 0 && velocityY != 0) {
+            float factor = (float) (1 / Math.sqrt(2));
+            velocityX *= factor;
+            velocityY *= factor;
+        }
+    }
+
+    // ========================
+    // OPTIONS
+    // ========================
+
+    public void setBaseSpeed(float baseSpeed) {
+        this.baseSpeed = baseSpeed;
+    }
+
+    public void setSprintMultiplier(float sprintMultiplier) {
+        this.sprintMultiplier = sprintMultiplier;
+    }
+
+    public float getVelocityX() {
+        return velocityX;
+    }
+
+    public float getVelocityY() {
+        return velocityY;
+    }
+}

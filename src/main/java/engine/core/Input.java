@@ -35,4 +35,16 @@ public class Input {
     public boolean attack() {
         return isKeyDown(GLFW_KEY_SPACE);
     }
+
+    public boolean pressed(int key){
+        return glfwGetKey(window, key) == GLFW_PRESS;
+    }
+
+    public boolean released(int key){
+        return glfwGetKey(window, key) == GLFW_RELEASE;
+    }
+
+    public boolean repeat(int key){
+        return glfwGetKey(window, key) == GLFW_REPEAT;
+    }
 }
