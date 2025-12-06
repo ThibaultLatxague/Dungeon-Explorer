@@ -21,7 +21,7 @@ public class Player {
         this.name = name;
     }
 
-    public void takeDamage(int amount){
+    public void takeDamage(float amount){
         if(amount >= getHealth()){
             setHealth(0);
             setDead(true);
@@ -30,7 +30,7 @@ public class Player {
         }
     }
 
-    public void heal(int amount){
+    public void heal(float amount){
         // Return the smallest value of the two floats
         if(!isDead()) { setHealth(Math.min(amount + getHealth(), getMaxHealth())); }
     }

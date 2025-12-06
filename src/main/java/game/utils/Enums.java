@@ -7,4 +7,19 @@ public class Enums {
         UP,
         DOWN
     }
+
+    public enum MonsterAIType{
+        AGGRESSIVE,
+        PASSIVE,
+        NEUTRAL,
+        BOSS
+    }
+
+    public enum MonsterState{
+        IDLE,
+        CHASE,
+        ATTACK,
+        FLEE,
+        DEAD
+    }
 }
