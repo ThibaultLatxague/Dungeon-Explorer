@@ -5,6 +5,12 @@ public class Player {
     private float yCoordinate;
     private String name;
 
+    public Player(float x, float y, String name){
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.name = name;
+    }
+
     public float getX(){
         return xCoordinate;
     }

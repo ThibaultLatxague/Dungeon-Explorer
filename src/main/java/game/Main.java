@@ -1,38 +1,55 @@
 package game;
 
-import engine.core.*;
-import engine.graphics.*;
+import engine.core.GameLoop;
+import engine.core.Window;
+import engine.graphics.SpriteRenderer;
+import engine.core.Input;
+import game.player.Player;
+import game.player.PlayerController;
 
 public class Main {
 
-    static void main() {
+    public static void main(String[] args) {
 
-        Window window = new Window(1280, 720, "Dungeon Explorer");
+        // ========================
+        // WINDOW
+        // ========================
+        Window window = new Window(1280, 720, "Dungeon Game");
         window.create();
-        Input input = new Input(window.getWindow());
-        SpriteRenderer renderer = new SpriteRenderer();
 
-        GameLoop loop = new GameLoop(window,
+        // ========================
+        // SYSTEMS
+        // ========================
+        Input input = new Input(window.getWindow());
+        SpriteRenderer renderer = new SpriteRenderer(window);
+        float deltaTime = 0.1f;
+
+        // ========================
+        // PLAYER
+        // ========================
+        Player player = new Player(0.0f, 0.0f, "Test");
+        PlayerController controller = new PlayerController(player, input);
+
+        // ========================
+        // GAME LOOP
+        // ========================
+        GameLoop gameLoop = new GameLoop(
+                window,
+
+                // UPDATE
                 () -> {
-                    if(input.up()) {
-                        GameLogger.log.info("KEY: Up pressed");
-                    }
-                    if(input.down()) {
-                        GameLogger.log.info("KEY: Down pressed");
-                    }
-                    if(input.left()) {
-                        GameLogger.log.info("KEY: Left pressed");
-                    }
-                    if(input.right()) {
-                        GameLogger.log.info("KEY: Right pressed");
-                    }
+                    input.update();
+                    controller.update(deltaTime);
                 },
+
+                // RENDER
                 () -> {
-                    // RENDER
-                    renderer.render(-0.5f, -0.5f, 0.2f, 0.2f);
+                    renderer.begin();
+                    renderer.renderPlayer(player);
+                    renderer.end();
                 }
         );
 
-        loop.run();
+        gameLoop.run();
     }
 }

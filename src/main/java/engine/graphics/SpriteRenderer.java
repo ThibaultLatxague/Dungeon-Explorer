@@ -1,17 +1,30 @@
 package engine.graphics;
 
+import engine.core.Window;
+import game.player.Player;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class SpriteRenderer {
+    private Window window;
 
-    public void render(float x, float y, float w, float h) {
-        glBegin(GL_QUADS);
+    public SpriteRenderer(Window window){
+        this.window = window;
+    }
 
-        glVertex2f(x, y);
-        glVertex2f(x + w, y);
-        glVertex2f(x + w, y + h);
-        glVertex2f(x, y + h);
+    public void renderPlayer(Player player){
+        // Pour le moment : un simple carré
+        float x = player.getX();
+        float y = player.getY();
 
-        glEnd();
+        // Tu remplaceras plus tard par un sprite
+    }
+
+    public void begin(){
+        // TO-DO
+    }
+
+    public void end(){
+        // TO-DO
     }
 }

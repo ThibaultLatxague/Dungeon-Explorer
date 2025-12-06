@@ -11,6 +11,10 @@ public class Input {
         this.window = window;
     }
 
+    public void update(){
+        glfwPollEvents();
+    }
+
     public boolean isKeyDown(int key) {
         return glfwGetKey(window, key) == GLFW_PRESS;
     }
