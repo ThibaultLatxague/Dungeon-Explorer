@@ -10,6 +10,10 @@ public class Player {
     private float maxHealth; // Vie maximale
     private String name;
     private Direction direction;
+    private boolean isMoving = false;
+    private boolean isRunning = false;
+    private boolean isAttacking = false;
+    private boolean isDead = false;
 
     public Player(float x, float y, String name){
         this.x = x;
@@ -20,6 +24,7 @@ public class Player {
     public void takeDamage(int amount){
         if(amount >= getHealth()){
             setHealth(0);
+            setDead(true);
         } else {
             setHealth(health - amount);
         }
@@ -27,11 +32,7 @@ public class Player {
 
     public void heal(int amount){
         // Return the smallest value of the two floats
-        setHealth(Math.min(amount + getHealth(), getMaxHealth()));
-    }
-
-    public boolean isAlive(){
-        return getHealth() == 0f;
+        if(!isDead()) { setHealth(Math.min(amount + getHealth(), getMaxHealth())); }
     }
 
     // ========================
@@ -40,18 +41,30 @@ public class Player {
 
     public float getX(){ return x; }
     public float getY(){ return y; }
+    public String getName() { return name; }
     public float getHeight() { return this.height; }
     public float getWidth() { return this.width; }
     public float getHealth() { return this.health; }
     public float getMaxHealth() { return this.maxHealth; }
     public Direction getDirection() { return this.direction; }
+    public boolean isMoving() { return isMoving; }
+    public boolean isRunning() { return isRunning; }
+    public boolean isAttacking() { return isAttacking; }
+    public boolean isDead() { return isDead; }
+
+
+
+    public void setHealth(float h){ this.health = h; }
+    public void setHeight(float h){ this.height = h; }
+    public void setWidth(float w){ this.width = w; }
+    public void setName(String name) { this.name = name; }
+    public void setMoving(boolean moving) { isMoving = moving; }
+    public void setRunning(boolean running) { isRunning = running; }
+    public void setAttacking(boolean attacking) { isAttacking = attacking; }
+    public void setDead(boolean dead) { isDead = dead; }
 
     public void setPosition(float x, float y){
         this.x = x;
         this.y = y;
     }
-
-    public void setHealth(float h){ this.health = h; }
-    public void setHeight(float h){ this.height = h; }
-    public void setWidth(float w){ this.width = w; }
 }
