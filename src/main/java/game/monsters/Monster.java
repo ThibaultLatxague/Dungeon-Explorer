@@ -10,23 +10,51 @@ public class Monster{
     private float height;
     private float width;
     private float health;
+    private float speed;
+    private float finalHealth;
     private float minHealth;
     private float maxHealth;
     private float damageMin;
     private float damageMax;
+    private float experienceRewardMin;
+    private float experienceRewardMax;
     private float attackRange;
+    private float aggroRange;
     private float attackSpeed;
     private boolean isDead = false;
+    private String name;
+    private int level;
     private MonsterAIType monsterAIType = MonsterAIType.NEUTRAL;
     private MonsterState monsterState = MonsterState.IDLE;
+    private MonsterType monsterType;
+    private MonsterAI monsterAI;
+    // TODO : LootTable
 
-    private RandomUtils random = new RandomUtils();
+    private final RandomUtils random = new RandomUtils();
 
     Monster(float x, float y, float h, float w){
         this.x = x;
         this.y = y;
         this.height = h;
         this.width = w;
+    }
+
+    public Monster() {
+    }
+
+    public void update(float deltaTime, Player player){
+        //TODO : Boucle de jeu
+        monsterAI.update(deltaTime);
+        //TODO : ajouter changement de position etc
+    }
+
+    public void onHit(int damage){
+        //TODO : Aggressive mode + damage + attack
+        takeDamage(damage);
+    }
+
+    public void onDeath(){
+        //TODO: Erase monster, drop exp, drop lootTable elements
     }
 
     public void takeDamage(int amount){
@@ -51,6 +79,16 @@ public class Monster{
         return random.randomFloat(damageMin, damageMax);
     }
 
+    public float getExperienceReward(){
+        return random.randomFloat(experienceRewardMin, experienceRewardMax);
+    }
+
+    public void setInitialHealth(){
+        float h = random.randomFloat(minHealth, maxHealth);
+        setHealth(h);
+        setFinalHealth(h);
+    }
+
     public void attack(Player player){
         if(canAttack()){
             player.takeDamage(getDamage());
@@ -66,6 +104,9 @@ public class Monster{
     public float getHeight() { return this.height; }
     public float getWidth() { return this.width; }
     public float getHealth() { return this.health; }
+    public float getFinalHealth() { return this.finalHealth; }
+    public float getAttackRange() { return this.attackRange; }
+    public float getAggroRange() { return this.aggroRange; }
     public boolean isDead() { return this.isDead; }
     public MonsterAIType getMonsterAIType() { return this.monsterAIType; }
     public MonsterState getMonsterState() { return this.monsterState; }
@@ -75,6 +116,7 @@ public class Monster{
     public void setHeight(float h) { this.height = h; }
     public void setWidth(float w) { this.width = w; }
     public void setHealth(float h) { this.health = h; }
+    public void setFinalHealth(float h) { this.finalHealth = h; }
     public void setDead(boolean d) { this.isDead = d; }
     public void setMonsterAIType(MonsterAIType t) { this.monsterAIType = t; }
     public void setMonsterState(MonsterState s) { this.monsterState = s; }

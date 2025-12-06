@@ -17,9 +17,25 @@ public class Enums {
 
     public enum MonsterState{
         IDLE,
+        PATROL,
         CHASE,
         ATTACK,
         FLEE,
         DEAD
+    }
+
+    public enum MonsterType{
+        GOBLIN,
+        SLIME,
+        DRAGON,
+        UNDEAD
+    }
+
+    public enum Behaviour{
+        AGGRESSIVE,
+        FLEE,
+        PASSIVE,
+        PATROL,
+        RANGED
     }
 }
