@@ -14,7 +14,7 @@ public class Main {
         // ========================
         // WINDOW
         // ========================
-        Window window = new Window(1280, 720, "Dungeon Game");
+        Window window = new Window(1920, 1080, "Dungeon Game");
         window.create();
 
         // ========================
@@ -22,7 +22,7 @@ public class Main {
         // ========================
         Input input = new Input(window.getWindow());
         SpriteRenderer renderer = new SpriteRenderer(window);
-        float deltaTime = 0.1f;
+        float deltaTime = 0.002f;
 
         // ========================
         // PLAYER
@@ -33,6 +33,7 @@ public class Main {
         // ========================
         // GAME LOOP
         // ========================
+        renderer.begin();
         GameLoop gameLoop = new GameLoop(
                 window,
 
@@ -44,12 +45,10 @@ public class Main {
 
                 // RENDER
                 () -> {
-                    renderer.begin();
                     renderer.renderPlayer(player);
-                    renderer.end();
                 }
         );
-
+        renderer.end();
         gameLoop.run();
     }
 }

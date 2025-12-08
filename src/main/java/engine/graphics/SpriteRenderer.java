@@ -37,10 +37,18 @@ public class SpriteRenderer {
         // Paramètres du joueur
         float x = player.getX();
         float y = player.getY();
-        float height = player.getHeight();
-        float width = player.getWidth();
+        float h = renderReducer(player.getHeight());
+        float w = renderReducer(player.getWidth());
 
-        // Tu remplaceras plus tard par un sprite
+        // Joueur = carré rouge
+        glColor3f(0.9f, 0.2f, 0.2f);
+
+        glBegin(GL_QUADS);
+        glVertex2f(x, y);
+        glVertex2f(x + w, y);
+        glVertex2f(x + w, y + h);
+        glVertex2f(x, y + h);
+        glEnd();
     }
 
     public void renderMonster(Monster monster){
@@ -55,6 +63,10 @@ public class SpriteRenderer {
          * TODO
          * Render map
          */
+    }
+
+    public float renderReducer(float v){
+        return (float)0.05*v;
     }
 
     // ========================

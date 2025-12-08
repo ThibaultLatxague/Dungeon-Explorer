@@ -4,8 +4,8 @@ import game.utils.Enums.*;
 public class Player {
     private float x;
     private float y;
-    private float height; // Hauteur
-    private float width; // Largeur
+    private float height = 2.5f; // Hauteur
+    private float width = 1f; // Largeur
     private float health; // Vie
     private float maxHealth; // Vie maximale
     private String name;

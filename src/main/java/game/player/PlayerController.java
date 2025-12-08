@@ -83,8 +83,8 @@ public class PlayerController {
         float newY = player.getY() + velocityY * deltaTime;
 
         // Future : gestion collisions ici
-        Log.log.info("Mouvement détecté. Nouveau x = " + newX);
-        Log.log.info("Mouvement détecté. Nouveau y = " + newY);
+        Log.log.info("Movement detected. New x = " + newX);
+        Log.log.info("Movement detected. New y = " + newY);
         player.setPosition(newX, newY);
     }
 
