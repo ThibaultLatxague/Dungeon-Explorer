@@ -9,13 +9,13 @@ public class Monster{
     private float y;
     private float height;
     private float width;
-    private float health;
     private float speed;
-    private float finalHealth;
-    private float minHealth;
-    private float maxHealth;
-    private float damageMin;
-    private float damageMax;
+    private float health; // Actual health
+    private float finalHealth; // Health set at spawn
+    private float minHealth; // Minimum health possible
+    private float maxHealth; // Maximum health possible
+    private float damageMin; // Min damage value
+    private float damageMax; // Max attack value
     private float experienceRewardMin;
     private float experienceRewardMax;
     private float attackRange;
@@ -128,6 +128,7 @@ public class Monster{
     public MonsterAIType getMonsterAIType() { return this.monsterAIType; }
     public MonsterState getMonsterState() { return this.monsterState; }
     public float getSpeed() { return this.speed; }
+    public String getName() { return this.name; }
 
     public void setX(float x) { this.x = x; }
     public void setY(float y) { this.y = y; }
@@ -138,4 +139,6 @@ public class Monster{
     public void setDead(boolean d) { this.isDead = d; }
     public void setMonsterAIType(MonsterAIType t) { this.monsterAIType = t; }
     public void setMonsterState(MonsterState s) { this.monsterState = s; }
+    public void setName(String n) { this.name = n; }
+    public void setLevel(int l) { this.level = l; }
 }

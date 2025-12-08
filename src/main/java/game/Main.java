@@ -2,14 +2,19 @@ package game;
 
 import engine.core.GameLoop;
 import engine.core.Window;
+import engine.graphics.DebugTextRenderer;
 import engine.graphics.SpriteRenderer;
 import engine.core.Input;
+import game.monsters.types.Slime.Slime;
 import game.player.Player;
 import game.player.PlayerController;
+import game.ui.DebugHUD;
+
+import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // ========================
         // WINDOW
@@ -22,13 +27,16 @@ public class Main {
         // ========================
         Input input = new Input(window.getWindow());
         SpriteRenderer renderer = new SpriteRenderer(window);
+        DebugTextRenderer font = new DebugTextRenderer("resources/fonts/Consolas.ttf");
         float deltaTime = 0.002f;
 
         // ========================
         // PLAYER
         // ========================
         Player player = new Player(0.0f, 0.0f, "Test");
+        Slime slime = new Slime();
         PlayerController controller = new PlayerController(player, input);
+        //DebugHUD debugHUD = new DebugHUD(font, player);
 
         // ========================
         // GAME LOOP
@@ -46,6 +54,7 @@ public class Main {
                 // RENDER
                 () -> {
                     renderer.renderPlayer(player);
+                    renderer.renderMonster(slime);
                 }
         );
         renderer.end();

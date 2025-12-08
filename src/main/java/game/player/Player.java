@@ -54,7 +54,6 @@ public class Player {
     public boolean isDead() { return isDead; }
     public float getSpeed() { return this.speed; }
 
-
     public void setHealth(float h){ this.health = h; }
     public void setHeight(float h){ this.height = h; }
     public void setWidth(float w){ this.width = w; }
