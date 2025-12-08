@@ -46,6 +46,7 @@ public class PlayerController {
         velocityX = 0;
         velocityY = 0;
         player.setMoving(false);
+        player.setAttacking(false);
 
         float speed = player.getSpeed();
 
@@ -73,6 +74,11 @@ public class PlayerController {
         if (input.right()) {
             velocityX += speed;
             player.setMoving(true);
+        }
+
+        if(input.attack()){
+            player.setAttacking(true);
+            Log.log.info("Player attacking");
         }
 
         normalizeDiagonal(speed);

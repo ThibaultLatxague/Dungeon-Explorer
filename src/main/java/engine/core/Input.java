@@ -37,7 +37,7 @@ public class Input {
     }
 
     public boolean attack() {
-        return isKeyDown(GLFW_KEY_SPACE);
+        return isKeyDown(GLFW_KEY_SPACE) || glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS;
     }
 
     public boolean pressed(int key){
