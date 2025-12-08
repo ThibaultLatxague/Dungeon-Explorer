@@ -14,6 +14,7 @@ public class Player {
     private boolean isRunning = false;
     private boolean isAttacking = false;
     private boolean isDead = false;
+    private float speed = 3.5f;
 
     public Player(float x, float y, String name){
         this.x = x;
@@ -51,7 +52,7 @@ public class Player {
     public boolean isRunning() { return isRunning; }
     public boolean isAttacking() { return isAttacking; }
     public boolean isDead() { return isDead; }
-
+    public float getSpeed() { return this.speed; }
 
 
     public void setHealth(float h){ this.health = h; }

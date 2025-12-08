@@ -38,4 +38,9 @@ public class Enums {
         PATROL,
         RANGED
     }
+
+    public enum LogType{
+        ERROR,
+        INFO
+    }
 }

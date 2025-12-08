@@ -19,7 +19,7 @@ public class FleeBehavior implements MonsterBehavior {
         }
 
         // Court dans la direction opposée
-        monster.move(dx * monster.getSpeed(), dy * monster.getSpeed(), deltaTime);
+        monster.moveTowards(dx * monster.getSpeed(), dy * monster.getSpeed(), deltaTime);
     }
 
     @Override

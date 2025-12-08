@@ -1,6 +1,7 @@
 package game.player;
 
 import engine.core.Input;
+import game.utils.Log;
 import game.utils.Timer;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -31,7 +32,9 @@ public class PlayerController {
      */
     public void update(float deltaTime) {
         handleMovement(deltaTime);
-        applyMovement(deltaTime);
+        if(player.isMoving() || player.isRunning()) {
+            applyMovement(deltaTime);
+        }
     }
 
     // ========================
@@ -42,27 +45,34 @@ public class PlayerController {
 
         velocityX = 0;
         velocityY = 0;
+        player.setMoving(false);
 
-        float speed = baseSpeed;
+        float speed = player.getSpeed();
 
         if (input.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
             speed *= sprintMultiplier;
+            //TODO : changer à setRunning
+            player.setMoving(true);
         }
 
         if (input.up()) {
             velocityY += speed;
+            player.setMoving(true);
         }
 
         if (input.down()) {
             velocityY -= speed;
+            player.setMoving(true);
         }
 
         if (input.left()) {
             velocityX -= speed;
+            player.setMoving(true);
         }
 
         if (input.right()) {
             velocityX += speed;
+            player.setMoving(true);
         }
 
         normalizeDiagonal(speed);
@@ -73,6 +83,8 @@ public class PlayerController {
         float newY = player.getY() + velocityY * deltaTime;
 
         // Future : gestion collisions ici
+        Log.log.info("Mouvement détecté. Nouveau x = " + newX);
+        Log.log.info("Mouvement détecté. Nouveau y = " + newY);
         player.setPosition(newX, newY);
     }
 

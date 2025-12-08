@@ -23,7 +23,7 @@ public class RangedBehavior implements MonsterBehavior {
             // Recule
             monster.moveAwayFrom(player.getX(), player.getY(), deltaTime);
         }
-        else if (distance <= monster.getVisionRange()) {
+        else if (distance <= monster.getAggroRange()) {
             // Tire à distance
             if (timer <= 0f) {
                 monster.shoot(player);

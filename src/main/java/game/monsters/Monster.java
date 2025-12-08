@@ -95,6 +95,23 @@ public class Monster{
         }
     }
 
+    public void moveTowards(float x, float y, float deltaTime) {
+        //TODO
+    }
+
+    public boolean isNear(float x, float y, float v) {
+        //TODO
+        return false;
+    }
+
+    public void moveAwayFrom(float x, float y, float deltaTime) {
+        //TODO
+    }
+
+    public void shoot(Player player) {
+        //TODO
+    }
+
     // ========================
     // OPTIONS
     // ========================
@@ -110,6 +127,7 @@ public class Monster{
     public boolean isDead() { return this.isDead; }
     public MonsterAIType getMonsterAIType() { return this.monsterAIType; }
     public MonsterState getMonsterState() { return this.monsterState; }
+    public float getSpeed() { return this.speed; }
 
     public void setX(float x) { this.x = x; }
     public void setY(float y) { this.y = y; }
