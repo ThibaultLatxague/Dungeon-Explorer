@@ -31,9 +31,11 @@ public class PlayerController {
      * Appelée à chaque frame depuis ta GameLoop
      */
     public void update(float deltaTime) {
-        handleMovement(deltaTime);
-        if(player.isMoving() || player.isRunning()) {
-            applyMovement(deltaTime);
+        if(!player.isDead()) {
+            handleMovement(deltaTime);
+            if(player.isMoving() || player.isRunning()) {
+                applyMovement(deltaTime);
+            }
         }
     }
 

@@ -30,6 +30,8 @@ public class Monster{
     private MonsterState monsterState = MonsterState.IDLE;
     private MonsterType monsterType;
     private MonsterAI monsterAI;
+    public float velocityX = 0;
+    public float velocityY = 0;
     // TODO : LootTable
 
     private final RandomUtils random = new RandomUtils();
@@ -48,10 +50,14 @@ public class Monster{
         //TODO : Boucle de jeu
         //TODO : ajouter changement de position etc
         //monsterAI.update(deltaTime);
-        Log.log.info("Distance : " + MathUtils.distance(player.getX(), player.getY(), getX(), getY()));
-        if(MathUtils.distance(player.getX(), player.getY(), getX(), getY()) <= getAggroRange()){
-            Log.log.info("Joueur dans distance de détection");
+        //Log.log.info("Distance : " + MathUtils.distance(player.getX(), player.getY(), getX(), getY()));
+        float distance = MathUtils.distance(player.getX()+player.getWidth()/2, player.getY()+player.getHeight()/2, getX()+getWidth()/2, getY()+getHeight()/2);
+        if(distance <= getAggroRange() && distance > getAttackRange()){
+            Log.log.info("Player dans distance de detection");
             moveTowards(player.getX(), player.getY(), deltaTime);
+        } else if (distance <= getAttackRange()) {
+            Log.log.info("Player dans distance d'attaque'");
+            attack(player);
         }
     }
 
@@ -102,10 +108,31 @@ public class Monster{
         }
     }
 
-    public void moveTowards(float x, float y, float deltaTime) {
-        //TODO
-        setX((x + 0.01f)*deltaTime);
-        setY((y + 0.01f)*deltaTime);
+    public void moveTowards(float playerX, float playerY, float deltaTime) {
+        float monsterX = getX();
+        float monsterY = getY();
+        float speed = getSpeed();
+
+        // Calcul du vecteur directionnel vers le joueur
+        float dirX = playerX - monsterX;
+        float dirY = playerY - monsterY;
+
+        // Distance actuelle
+        float distance = (float) Math.sqrt(dirX * dirX + dirY * dirY);
+
+        // Éviter la division par zéro si le monstre est déjà sur le joueur
+        if (distance == 0) return;
+
+        // Normalisation du vecteur (direction unitaire)
+        dirX /= distance;
+        dirY /= distance;
+
+        // Application du mouvement : vitesse * direction * deltaTime
+        float newX = monsterX + dirX * speed * deltaTime;
+        float newY = monsterY + dirY * speed * deltaTime;
+
+        setX(newX);
+        setY(newY);
     }
 
     public boolean isNear(float x, float y, float v) {
@@ -152,4 +179,5 @@ public class Monster{
     public void setLevel(int l) { this.level = l; }
     public void setAttackRange(float a) { this.attackRange = a; }
     public void setAggroRange(float a) { this.aggroRange = a; }
+    public void setSpeed(float s) { this.speed = s; }
 }

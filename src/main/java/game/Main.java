@@ -49,13 +49,13 @@ public class Main {
                 () -> {
                     input.update();
                     controller.update(deltaTime);
-                    slime.update(deltaTime, player);
+                    if(!slime.isDead() && !player.isDead()) { slime.update(deltaTime, player); }
                 },
 
                 // RENDER
                 () -> {
-                    renderer.renderPlayer(player);
-                    renderer.renderMonster(slime);
+                    if(!player.isDead()) { renderer.renderPlayer(player); }
+                    if(!slime.isDead()) { renderer.renderMonster(slime); }
                 }
         );
         renderer.end();
