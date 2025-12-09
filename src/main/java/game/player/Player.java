@@ -1,4 +1,6 @@
 package game.player;
+import game.items.weapons.Weapon;
+import game.items.weapons.types.sword.Sword;
 import game.monsters.Monster;
 import game.utils.Enums.*;
 import game.utils.Log;
@@ -18,18 +20,17 @@ public class Player {
     private boolean isAttacking = false;
     private boolean isDead = false;
     private float speed = 1f;
+    private Weapon weapon;
 
-    //TODO : A SUPPRIMER et mettre dans weapon
-    private float attackRange = 0.3f;
-    private float attackDamage = 30f;
-    private Monster target;
+    //TODO : A supprimer ?
     private float attackTimer = 0f;
-    private float attackSpeed = 1f;
+    private Monster target;
 
     public Player(float x, float y, String name){
         this.x = x;
         this.y = y;
         this.name = name;
+        this.weapon = new Sword();
     }
 
     public void takeDamage(float amount){
@@ -51,7 +52,7 @@ public class Player {
         //TODO Faire la fonction + donner en param target
         Monster target = getTarget();
         float distance = MathUtils.distance(getX()+getWidth()/2, getY()+getHeight()/2, target.getX()+target.getWidth()/2, target.getY()+target.getHeight()/2);
-        if(isAttacking() && distance <= getAttackRange()){
+        if(isAttacking() && distance <= weapon.getAttackRange()){
             attackTarget(target, deltaTime);
         }
     }
@@ -64,7 +65,7 @@ public class Player {
     public void attackTarget(Monster target, float deltaTime){
         if(canAttack(deltaTime)){
             Log.log.info("Attaque du joueur realisee");
-            float damage = attackDamage;
+            float damage = weapon.getDamageAmount();
             Log.log.info("Degats donnés : " + damage);
             target.onHit(damage);
             setAttacking(false);
@@ -81,7 +82,7 @@ public class Player {
         }
 
         // Sinon on peut attaquer → on reset le cooldown
-        attackTimer = attackSpeed; // getAttackSpeed() = temps entre 2 attaques
+        attackTimer = weapon.getAttackSpeed(); // getAttackSpeed() = temps entre 2 attaques
 
         return true;
     }
@@ -103,8 +104,7 @@ public class Player {
     public boolean isAttacking() { return isAttacking; }
     public boolean isAlive() { return !isDead; }
     public float getSpeed() { return this.speed; }
-    //TODO : A SUPPRIMER
-    public float getAttackRange() { return this.attackRange; }
+    public Weapon getWeapon() { return this.weapon; }
 
     public void setHealth(float h){ this.health = h; }
     public void setHeight(float h){ this.height = h; }

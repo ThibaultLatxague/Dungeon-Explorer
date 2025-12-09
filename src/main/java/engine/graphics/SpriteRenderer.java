@@ -50,7 +50,7 @@ public class SpriteRenderer {
         glVertex2f(x, y + h);
         glEnd();
 
-        renderOutlineCircle(x+w/2, y+h/2, player.getAttackRange());
+        renderOutlineCircle(x+w/2, y+h/2, player.getWeapon().getAttackRange());
     }
 
     public void renderMonster(Monster monster){
