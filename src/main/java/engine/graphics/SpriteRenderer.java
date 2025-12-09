@@ -37,8 +37,8 @@ public class SpriteRenderer {
         // Paramètres du joueur
         float x = player.getX();
         float y = player.getY();
-        float h = renderReducer(player.getHeight());
-        float w = renderReducer(player.getWidth());
+        float h = player.getHeight();
+        float w = player.getWidth();
 
         // Joueur = carré rouge
         glColor3f(0.9f, 0.2f, 0.2f);
@@ -50,7 +50,7 @@ public class SpriteRenderer {
         glVertex2f(x, y + h);
         glEnd();
 
-        renderOutlineCircle(x+w/2, y+h/2, renderReducer(player.getAttackRange()));
+        renderOutlineCircle(x+w/2, y+h/2, player.getAttackRange());
     }
 
     public void renderMonster(Monster monster){
@@ -61,8 +61,8 @@ public class SpriteRenderer {
         // Monster values
         float x = monster.getX();
         float y = monster.getY();
-        float h = renderReducer(monster.getHeight());
-        float w = renderReducer(monster.getWidth());
+        float h = monster.getHeight();
+        float w = monster.getWidth();
 
         // Joueur = carré rouge
         glColor3f(1f, 1f, 1f);
@@ -74,8 +74,8 @@ public class SpriteRenderer {
         glVertex2f(x, y + h);
         glEnd();
 
-        renderOutlineCircle(x+w/2, y+h/2, renderReducer(monster.getAggroRange()));
-        renderOutlineCircle(x+w/2, y+h/2, renderReducer(monster.getAttackRange()));
+        renderOutlineCircle(x+w/2, y+h/2, monster.getAggroRange());
+        renderOutlineCircle(x+w/2, y+h/2, monster.getAttackRange());
     }
 
     public void renderOutlineCircle(float x, float y, float radius){

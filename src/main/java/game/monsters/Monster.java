@@ -2,7 +2,9 @@ package game.monsters;
 
 import game.player.Player;
 import game.utils.Enums.*;
+import game.utils.Log;
 import game.utils.RandomUtils;
+import game.utils.MathUtils;
 
 public class Monster{
     private float x;
@@ -44,8 +46,13 @@ public class Monster{
 
     public void update(float deltaTime, Player player){
         //TODO : Boucle de jeu
-        monsterAI.update(deltaTime);
         //TODO : ajouter changement de position etc
+        //monsterAI.update(deltaTime);
+        Log.log.info("Distance : " + MathUtils.distance(player.getX(), player.getY(), getX(), getY()));
+        if(MathUtils.distance(player.getX(), player.getY(), getX(), getY()) <= getAggroRange()){
+            Log.log.info("Joueur dans distance de détection");
+            moveTowards(player.getX(), player.getY(), deltaTime);
+        }
     }
 
     public void onHit(int damage){
@@ -97,6 +104,8 @@ public class Monster{
 
     public void moveTowards(float x, float y, float deltaTime) {
         //TODO
+        setX((x + 0.01f)*deltaTime);
+        setY((y + 0.01f)*deltaTime);
     }
 
     public boolean isNear(float x, float y, float v) {

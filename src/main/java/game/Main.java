@@ -19,7 +19,7 @@ public class Main {
         // ========================
         // WINDOW
         // ========================
-        Window window = new Window(1020, 780, "Dungeon Game");
+        Window window = new Window(780, 780, "Dungeon Game");
         window.create();
 
         // ========================
@@ -49,6 +49,7 @@ public class Main {
                 () -> {
                     input.update();
                     controller.update(deltaTime);
+                    slime.update(deltaTime, player);
                 },
 
                 // RENDER
