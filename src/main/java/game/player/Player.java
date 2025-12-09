@@ -1,5 +1,6 @@
 package game.player;
 import game.utils.Enums.*;
+import game.utils.Log;
 
 public class Player {
     private float x;
@@ -14,7 +15,7 @@ public class Player {
     private boolean isRunning = false;
     private boolean isAttacking = false;
     private boolean isDead = false;
-    private float speed = 3.5f;
+    private float speed = 1f;
 
     //TODO : A SUPPRIMER et mettre dans weapon
     private float attackRange = 0.3f;
@@ -32,6 +33,7 @@ public class Player {
         } else {
             setHealth(health - amount);
         }
+        Log.log.info("ATTACKED: " + getHealth());
     }
 
     public void heal(float amount){

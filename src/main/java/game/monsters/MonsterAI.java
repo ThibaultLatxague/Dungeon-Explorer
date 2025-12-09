@@ -22,7 +22,7 @@ public class MonsterAI {
         if(monster.getHealth() <= monster.getFinalHealth()*0.2){
             currentState = MonsterState.FLEE;
         } else if (distanceToPlayer <= monster.getAttackRange()) {
-            monster.attack(target);
+            monster.attack(target, deltaTime);
         } else if (distanceToPlayer <= monster.getAggroRange()) {
             currentState = MonsterState.CHASE;
         } else {

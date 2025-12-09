@@ -15,7 +15,10 @@ public class Slime extends Monster {
         setLevel(10);
         setAttackRange(0.2f);
         setAggroRange(0.5f);
-        setSpeed(2f);
+        setSpeed(0.5f);
+        setAttackSpeed(2f);
+        setDamageMin(1);
+        setDamageMax(5);
         setName("Slime");
     }
 }

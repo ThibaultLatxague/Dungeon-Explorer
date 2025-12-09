@@ -30,8 +30,9 @@ public class Monster{
     private MonsterState monsterState = MonsterState.IDLE;
     private MonsterType monsterType;
     private MonsterAI monsterAI;
-    public float velocityX = 0;
-    public float velocityY = 0;
+    private float velocityX = 0;
+    private float velocityY = 0;
+    private float attackTimer = 0f;
     // TODO : LootTable
 
     private final RandomUtils random = new RandomUtils();
@@ -52,12 +53,13 @@ public class Monster{
         //monsterAI.update(deltaTime);
         //Log.log.info("Distance : " + MathUtils.distance(player.getX(), player.getY(), getX(), getY()));
         float distance = MathUtils.distance(player.getX()+player.getWidth()/2, player.getY()+player.getHeight()/2, getX()+getWidth()/2, getY()+getHeight()/2);
+
         if(distance <= getAggroRange() && distance > getAttackRange()){
-            Log.log.info("Player dans distance de detection");
+            //Log.log.info("Player dans distance de detection");
             moveTowards(player.getX(), player.getY(), deltaTime);
         } else if (distance <= getAttackRange()) {
-            Log.log.info("Player dans distance d'attaque'");
-            attack(player);
+            //Log.log.info("Player dans distance d'attaque'");
+            attack(player, deltaTime);
         }
     }
 
@@ -79,12 +81,18 @@ public class Monster{
         }
     }
 
-    public boolean canAttack(){
-        /**
-         * TODO
-         * Regarder le cooldown en fonction du delta time
-         * return attackSpeed >= Time.deltaTime;
-         */
+    public boolean canAttack(float deltaTime) {
+        // On réduit le cooldown restant
+        attackTimer -= deltaTime;
+
+        // Si encore en cooldown → impossible d’attaquer
+        if (attackTimer > 0) {
+            return false;
+        }
+
+        // Sinon on peut attaquer → on reset le cooldown
+        attackTimer = getAttackSpeed(); // getAttackSpeed() = temps entre 2 attaques
+
         return true;
     }
 
@@ -102,9 +110,12 @@ public class Monster{
         setFinalHealth(h);
     }
 
-    public void attack(Player player){
-        if(canAttack()){
-            player.takeDamage(getDamage());
+    public void attack(Player player, float deltaTime){
+        if(canAttack(deltaTime)){
+            Log.log.info("Attaque realisee");
+            float damage = getDamage();
+            Log.log.info("Degats donnés : " + damage);
+            player.takeDamage(damage);
         }
     }
 
@@ -165,6 +176,7 @@ public class Monster{
     public MonsterState getMonsterState() { return this.monsterState; }
     public float getSpeed() { return this.speed; }
     public String getName() { return this.name; }
+    public float getAttackSpeed() { return this.attackSpeed; }
 
     public void setX(float x) { this.x = x; }
     public void setY(float y) { this.y = y; }
@@ -180,4 +192,7 @@ public class Monster{
     public void setAttackRange(float a) { this.attackRange = a; }
     public void setAggroRange(float a) { this.aggroRange = a; }
     public void setSpeed(float s) { this.speed = s; }
+    public void setAttackSpeed(float a) { this.attackSpeed = a; }
+    public void setDamageMin(float dM) { this.damageMin = dM; }
+    public void setDamageMax(float dM) { this.damageMax = dM; }
 }

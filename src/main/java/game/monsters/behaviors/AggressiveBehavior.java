@@ -23,7 +23,7 @@ public class AggressiveBehavior implements MonsterBehavior {
 
         // Si assez proche et cooldown terminé → attaque
         if (distance <= monster.getAttackRange() && timer <= 0f) {
-            monster.attack(player);
+            monster.attack(player, deltaTime);
             timer = attackCooldown;
         }
     }
