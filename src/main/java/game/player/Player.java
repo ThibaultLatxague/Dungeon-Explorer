@@ -16,6 +16,9 @@ public class Player {
     private boolean isDead = false;
     private float speed = 3.5f;
 
+    //TODO : A SUPPRIMER et mettre dans weapon
+    private float attackRange = 3f;
+
     public Player(float x, float y, String name){
         this.x = x;
         this.y = y;
@@ -53,6 +56,8 @@ public class Player {
     public boolean isAttacking() { return isAttacking; }
     public boolean isDead() { return isDead; }
     public float getSpeed() { return this.speed; }
+    //TODO : A SUPPRIMER
+    public float getAttackRange() { return this.attackRange; }
 
     public void setHealth(float h){ this.health = h; }
     public void setHeight(float h){ this.height = h; }

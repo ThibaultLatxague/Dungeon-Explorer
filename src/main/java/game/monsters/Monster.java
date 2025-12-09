@@ -141,4 +141,6 @@ public class Monster{
     public void setMonsterState(MonsterState s) { this.monsterState = s; }
     public void setName(String n) { this.name = n; }
     public void setLevel(int l) { this.level = l; }
+    public void setAttackRange(float a) { this.attackRange = a; }
+    public void setAggroRange(float a) { this.aggroRange = a; }
 }
