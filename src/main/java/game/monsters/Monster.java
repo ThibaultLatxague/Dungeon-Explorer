@@ -63,7 +63,7 @@ public class Monster{
         }
     }
 
-    public void onHit(int damage){
+    public void onHit(float damage){
         //TODO : Aggressive mode + damage + attack
         takeDamage(damage);
     }
@@ -72,13 +72,14 @@ public class Monster{
         //TODO: Erase monster, drop exp, drop lootTable elements
     }
 
-    public void takeDamage(int amount){
+    public void takeDamage(float amount){
         if(amount >= getHealth()){
             setHealth(0);
             setDead(true);
         } else {
             setHealth(getHealth() - amount);
         }
+        Log.log.info("Vie target: " + getHealth());
     }
 
     public boolean canAttack(float deltaTime) {
@@ -104,8 +105,8 @@ public class Monster{
         return random.randomFloat(experienceRewardMin, experienceRewardMax);
     }
 
-    public void setInitialHealth(){
-        float h = random.randomFloat(minHealth, maxHealth);
+    public void setInitialHealth(float min, float max){
+        float h = random.randomFloat(min, max);
         setHealth(h);
         setFinalHealth(h);
     }

@@ -1,6 +1,8 @@
 package game.player;
+import game.monsters.Monster;
 import game.utils.Enums.*;
 import game.utils.Log;
+import game.utils.MathUtils;
 
 public class Player {
     private float x;
@@ -19,6 +21,10 @@ public class Player {
 
     //TODO : A SUPPRIMER et mettre dans weapon
     private float attackRange = 0.3f;
+    private float attackDamage = 30f;
+    private Monster target;
+    private float attackTimer = 0f;
+    private float attackSpeed = 1f;
 
     public Player(float x, float y, String name){
         this.x = x;
@@ -38,7 +44,46 @@ public class Player {
 
     public void heal(float amount){
         // Return the smallest value of the two floats
-        if(!isDead()) { setHealth(Math.min(amount + getHealth(), getMaxHealth())); }
+        if(isAlive()) { setHealth(Math.min(amount + getHealth(), getMaxHealth())); }
+    }
+
+    public void attack(float deltaTime){
+        //TODO Faire la fonction + donner en param target
+        Monster target = getTarget();
+        float distance = MathUtils.distance(getX()+getWidth()/2, getY()+getHeight()/2, target.getX()+target.getWidth()/2, target.getY()+target.getHeight()/2);
+        if(isAttacking() && distance <= getAttackRange()){
+            attackTarget(target, deltaTime);
+        }
+    }
+
+    public Monster getTarget(){
+        //TODO
+        return target;
+    }
+
+    public void attackTarget(Monster target, float deltaTime){
+        if(canAttack(deltaTime)){
+            Log.log.info("Attaque du joueur realisee");
+            float damage = attackDamage;
+            Log.log.info("Degats donnés : " + damage);
+            target.onHit(damage);
+            setAttacking(false);
+        }
+    }
+
+    public boolean canAttack(float deltaTime){
+        // On réduit le cooldown restant
+        attackTimer -= deltaTime;
+
+        // Si encore en cooldown → impossible d’attaquer
+        if (attackTimer > 0) {
+            return false;
+        }
+
+        // Sinon on peut attaquer → on reset le cooldown
+        attackTimer = attackSpeed; // getAttackSpeed() = temps entre 2 attaques
+
+        return true;
     }
 
     // ========================
@@ -56,7 +101,7 @@ public class Player {
     public boolean isMoving() { return isMoving; }
     public boolean isRunning() { return isRunning; }
     public boolean isAttacking() { return isAttacking; }
-    public boolean isDead() { return isDead; }
+    public boolean isAlive() { return !isDead; }
     public float getSpeed() { return this.speed; }
     //TODO : A SUPPRIMER
     public float getAttackRange() { return this.attackRange; }
@@ -69,6 +114,7 @@ public class Player {
     public void setRunning(boolean running) { isRunning = running; }
     public void setAttacking(boolean attacking) { isAttacking = attacking; }
     public void setDead(boolean dead) { isDead = dead; }
+    public void setTarget(Monster t) { target = t; }
 
     public void setPosition(float x, float y){
         this.x = x;

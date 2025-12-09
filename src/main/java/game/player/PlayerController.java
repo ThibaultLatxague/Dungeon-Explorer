@@ -2,7 +2,7 @@ package game.player;
 
 import engine.core.Input;
 import game.utils.Log;
-import game.utils.Timer;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class PlayerController {
@@ -31,7 +31,7 @@ public class PlayerController {
      * Appelée à chaque frame depuis ta GameLoop
      */
     public void update(float deltaTime) {
-        if(!player.isDead()) {
+        if(player.isAlive()) {
             handleMovement(deltaTime);
             if(player.isMoving() || player.isRunning()) {
                 applyMovement(deltaTime);
@@ -44,7 +44,6 @@ public class PlayerController {
     // ========================
 
     private void handleMovement(float deltaTime) {
-
         velocityX = 0;
         velocityY = 0;
         player.setMoving(false);
@@ -80,7 +79,8 @@ public class PlayerController {
 
         if(input.attack()){
             player.setAttacking(true);
-            Log.log.info("Player attacking");
+            player.attack(deltaTime);
+            //Log.log.info("Player attacking");
         }
 
         normalizeDiagonal(speed);

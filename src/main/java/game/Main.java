@@ -8,8 +8,6 @@ import engine.core.Input;
 import game.monsters.types.Slime.Slime;
 import game.player.Player;
 import game.player.PlayerController;
-import game.ui.DebugHUD;
-import game.utils.Log;
 
 import java.io.IOException;
 
@@ -39,6 +37,7 @@ public class Main {
         Player player = new Player(0.0f, 0.0f, "Test");
         player.setHealth(100);
         Slime slime = new Slime();
+        player.setTarget(slime);
         PlayerController controller = new PlayerController(player, input);
         //DebugHUD debugHUD = new DebugHUD(font, player);
 
@@ -58,12 +57,12 @@ public class Main {
 
                     input.update();
                     controller.update(deltaTime);
-                    if(!slime.isDead() && !player.isDead()) { slime.update(deltaTime, player); }
+                    if(!slime.isDead() && player.isAlive()) { slime.update(deltaTime, player); }
                 },
 
                 // RENDER
                 () -> {
-                    if(!player.isDead()) { renderer.renderPlayer(player); }
+                    if(player.isAlive()) { renderer.renderPlayer(player); }
                     if(!slime.isDead()) { renderer.renderMonster(slime); }
                 }
         );

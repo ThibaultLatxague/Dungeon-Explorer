@@ -1,13 +1,16 @@
 package game.monsters.types.Slime;
 
 import game.monsters.Monster;
+import game.utils.Log;
 import game.utils.RandomUtils;
 
 public class Slime extends Monster {
     private final RandomUtils random = new RandomUtils();
 
     public Slime(){
-        setFinalHealth(random.randomFloat(70,100));
+
+        setInitialHealth(70,100);
+        Log.log.info("SLIME HEALTH: " + getHealth());
         setX(0.5f);
         setY(0.5f);
         setHeight(0.1f);
