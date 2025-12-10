@@ -2,17 +2,17 @@ package game.ui;
 
 import game.player.Player;
 import game.monsters.Monster;
-import engine.graphics.DebugTextRenderer;
+import engine.graphics.TextRenderer;
 
 public class DebugHUD {
 
-    private DebugTextRenderer text;
+    private TextRenderer text;
     private boolean visible = true;
 
     private Player player;
     private Monster focusedMonster;
 
-    public DebugHUD(DebugTextRenderer renderer, Player player) {
+    public DebugHUD(TextRenderer renderer, Player player) {
         this.text = renderer;
         this.player = player;
     }
@@ -30,28 +30,24 @@ public class DebugHUD {
     }
 
     public void render(float fps) {
-
         if (!visible) return;
 
-        float y = 700;
+        String[] lines = new String[20];
+        int lineIndex = 0;
 
-        text.drawText("=== DEBUG MODE ===", 10, y, 1f, 1, 1, 0); y -= 25;
-        text.drawText("FPS : " + (int) fps, 10, y, 1f, 0, 1, 0); y -= 25;
+        lines[lineIndex++] = "=== DEBUG MODE ===";
+        lines[lineIndex++] = "FPS : " + (int) fps;
+        lines[lineIndex++] = "";
+        lines[lineIndex++] = "-- PLAYER --";
+        lines[lineIndex++] = "HP : " + player.getHealth();
+        lines[lineIndex++] = "X : " + player.getX();
+        lines[lineIndex++] = "Y : " + player.getY();
 
-        // PLAYER
-        text.drawText("-- PLAYER --", 10, y, 1, 0, 1, 1); y -= 20;
-        text.drawText("HP : " + player.getHealth(), 10, y, 1, 1, 1, 1); y -= 20;
-        text.drawText("X : " + player.getX(), 10, y, 1, 1, 1, 1); y -= 20;
-        text.drawText("Y : " + player.getY(), 10, y, 1, 1, 1, 1); y -= 20;
-        //text.drawText("State : " + player.getState(), 10, y, 1, 1, 1, 1); y -= 30;
+        lines[lineIndex++] = "";
+        lines[lineIndex++] = "-- MONSTER --";
+        lines[lineIndex++] = "Type : " + focusedMonster.getName();
+        lines[lineIndex++] = "HP   : " + focusedMonster.getHealth();
 
-
-        // MONSTER
-        if (focusedMonster != null) {
-            text.drawText("-- MONSTER --", 10, y, 1, 1, 0, 0); y -= 20;
-            text.drawText("Type : " + focusedMonster.getName(), 10, y, 1, 1, 1, 1); y -= 20;
-            text.drawText("HP   : " + focusedMonster.getHealth(), 10, y, 1, 1, 1, 1); y -= 20;
-            //text.drawText("AI   : " + focusedMonster.getAI().getCurrentState(), 10, y, 1, 1, 1, 1);
-        }
+        text.drawLines(lines, 0, 700);
     }
 }
