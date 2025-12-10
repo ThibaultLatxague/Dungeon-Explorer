@@ -42,11 +42,14 @@ public class DebugHUD {
         lines[lineIndex++] = "HP : " + player.getHealth();
         lines[lineIndex++] = "X : " + player.getX();
         lines[lineIndex++] = "Y : " + player.getY();
+        lines[lineIndex++] = "AttackTimer : " + player.getAttackTimer();
 
         lines[lineIndex++] = "";
         lines[lineIndex++] = "-- MONSTER --";
         lines[lineIndex++] = "Type : " + focusedMonster.getName();
         lines[lineIndex++] = "HP   : " + focusedMonster.getHealth();
+        lines[lineIndex++] = "X : " + focusedMonster.getX();
+        lines[lineIndex++] = "Y : " + focusedMonster.getY();
 
         text.drawLines(lines, 0, 700);
     }

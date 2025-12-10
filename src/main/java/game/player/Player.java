@@ -72,19 +72,15 @@ public class Player {
         }
     }
 
-    public boolean canAttack(float deltaTime){
-        // On réduit le cooldown restant
-        attackTimer -= deltaTime;
+    public boolean canAttack(float deltaTime) {
+        attackTimer += deltaTime;
 
-        // Si encore en cooldown → impossible d’attaquer
-        if (attackTimer > 0) {
-            return false;
+        if (attackTimer >= weapon.getAttackSpeed()) {
+            attackTimer = 0f;
+            return true;
         }
 
-        // Sinon on peut attaquer → on reset le cooldown
-        attackTimer = weapon.getAttackSpeed(); // getAttackSpeed() = temps entre 2 attaques
-
-        return true;
+        return false;
     }
 
     // ========================
@@ -105,6 +101,7 @@ public class Player {
     public boolean isAlive() { return !isDead; }
     public float getSpeed() { return this.speed; }
     public Weapon getWeapon() { return this.weapon; }
+    public float getAttackTimer() { return attackTimer; }
 
     public void setHealth(float h){ this.health = h; }
     public void setHeight(float h){ this.height = h; }
@@ -115,6 +112,7 @@ public class Player {
     public void setAttacking(boolean attacking) { isAttacking = attacking; }
     public void setDead(boolean dead) { isDead = dead; }
     public void setTarget(Monster t) { target = t; }
+    public void setAttackTimer(float a) { attackTimer = a; }
 
     public void setPosition(float x, float y){
         this.x = x;

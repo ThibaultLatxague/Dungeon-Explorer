@@ -17,6 +17,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Main {
 
     static long lastTime = System.nanoTime();
+    static long lastTime2 = System.nanoTime();
 
     public static void main(String[] args) throws IOException {
 
@@ -79,14 +80,14 @@ public class Main {
                     glLoadIdentity();
 
                     // Rendu du HUD (en dernier pour être au dessus)
-                    debugHUD.render(60);
+                    debugHUD.render(0);
 
                     // Restaurer les matrices
                     glMatrixMode(GL_PROJECTION);
                     glPopMatrix();
                     glMatrixMode(GL_MODELVIEW);
                     glPopMatrix();
-                    
+
                     // Rendu du jeu
                     if(player.isAlive()) { renderer.renderPlayer(player); }
                     if(!slime.isDead()) { renderer.renderMonster(slime); }
