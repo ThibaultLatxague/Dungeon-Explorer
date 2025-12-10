@@ -20,7 +20,7 @@ public class Main {
         // ========================
         // WINDOW
         // ========================
-        Window window = new Window(780, 780, "Dungeon Game");
+        Window window = new Window(1920, 1080, "Dungeon Game");
         window.create();
 
         // ========================

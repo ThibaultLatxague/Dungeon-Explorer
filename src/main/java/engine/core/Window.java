@@ -10,6 +10,7 @@ public class Window {
     private long window;
     private int width, height;
     private String title;
+    private float aspectRatio = 1f;
 
     public Window(int width, int height, String title) {
         this.width = width;
@@ -33,11 +34,17 @@ public class Window {
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        update();
     }
 
     public void update() {
+        updateAspectRatio();
         glfwSwapBuffers(window);
         glfwPollEvents();
+    }
+
+    public void updateAspectRatio() {
+        this.aspectRatio = (float) getWidth() / (float) getHeight();
     }
 
     public boolean shouldClose() {
@@ -51,4 +58,7 @@ public class Window {
     public long getWindow() {
         return window;
     }
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+    public float getAspectRatio() { return aspectRatio; }
 }
