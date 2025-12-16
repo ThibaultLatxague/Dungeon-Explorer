@@ -43,4 +43,22 @@ public class Enums {
         ERROR,
         INFO
     }
+
+    public enum ItemCategory{
+        CRAFTABLE,
+        LOOTABLE,
+        CONSUMABLE,
+        MISC
+    }
+
+    public enum ItemRarity{
+        COMMON,
+        UNCOMMON,
+        RARE,
+        EPIC,
+        LEGENDARY,
+        MYTHIC,
+        SPECIAL,
+        SECRET
+    }
 }

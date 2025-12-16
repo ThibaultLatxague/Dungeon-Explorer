@@ -14,6 +14,7 @@ public class Weapon {
     private float attackRange;
     private float attackSpeed;
     private float lastAttackDamage;
+    private float attackWideness;
     // TODO: private Recipe recipe
 
     // Autre
@@ -40,4 +41,5 @@ public class Weapon {
     public void setLastAttackDamage(float l) { this.lastAttackDamage = l; }
     public void setAttackSpeed(float a) { this.attackSpeed = a; }
     public void setAttackRange(float a) { this.attackRange = a; }
+    public void setAttackWideness(float a) { attackWideness = a; }
 }

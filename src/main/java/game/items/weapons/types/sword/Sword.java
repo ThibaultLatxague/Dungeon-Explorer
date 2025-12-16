@@ -9,5 +9,6 @@ public class Sword extends Weapon {
         setMaxDamage(5);
         setAttackSpeed(1);
         setAttackRange(0.3f);
+        setAttackWideness(0.2f);
     }
 }
