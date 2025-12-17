@@ -1,9 +1,10 @@
 package engine.graphics;
 
 import engine.core.Window;
+import engine.world.world.TileMap;
 import game.player.Player;
 import game.monsters.*;
-import game.world.Tile;
+
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 
@@ -173,7 +174,7 @@ public class SpriteRenderer {
         glEnd();
     }
 
-    public void renderWorld(Tile[][] map){
+    public void renderWorld(TileMap[][] map){
         /**
          * TODO
          * Render map

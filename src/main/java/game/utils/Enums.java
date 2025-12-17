@@ -61,4 +61,12 @@ public class Enums {
         SPECIAL,
         SECRET
     }
+
+    public enum TileType{
+        GRASS,
+        DIRT,
+        STONE,
+        WATER,
+        LAVA
+    }
 }
