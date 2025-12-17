@@ -1,5 +1,6 @@
 package game;
 
+import engine.core.Camera;
 import engine.core.GameLoop;
 import engine.core.Window;
 import engine.graphics.TextRenderer;
@@ -33,6 +34,9 @@ public class Main {
         Input input = new Input(window.getWindow());
         SpriteRenderer renderer = new SpriteRenderer(window);
         TextRenderer textRenderer = new TextRenderer("src/main/resources/fonts/Consolas.ttf", 16);
+        Camera camera = new Camera();
+        camera.setSmoothness(0.08f); // Plus la valeur est basse, plus le suivi est lisse
+
         //float deltaTime = 0.002f;
 
         // ========================
@@ -62,11 +66,22 @@ public class Main {
 
                     input.update();
                     controller.update(deltaTime);
+                    camera.followPlayer(player.getX(), player.getY(), window);
                     if(!slime.isDead() && player.isAlive()) { slime.update(deltaTime, player); }
                 },
 
                 // RENDER
                 () -> {
+                    glClear(GL_COLOR_BUFFER_BIT);
+
+                    // === RENDU DU JEU (avec caméra) ===
+                    camera.applyTransform(window);
+
+                    // Rendu des entités
+                    if(player.isAlive()) { renderer.renderPlayer(player); }
+                    if(!slime.isDead()) { renderer.renderMonster(slime); }
+
+                    // === RENDU DU HUD (par-dessus, sans caméra) ===
                     // Sauvegarder l'état de projection actuel
                     glMatrixMode(GL_PROJECTION);
                     glPushMatrix();
@@ -79,7 +94,7 @@ public class Main {
                     glPushMatrix();
                     glLoadIdentity();
 
-                    // Rendu du HUD (en dernier pour être au dessus)
+                    // Rendu du HUD (en dernier pour être au-dessus)
                     debugHUD.render(0);
 
                     // Restaurer les matrices
@@ -87,10 +102,6 @@ public class Main {
                     glPopMatrix();
                     glMatrixMode(GL_MODELVIEW);
                     glPopMatrix();
-
-                    // Rendu du jeu
-                    if(player.isAlive()) { renderer.renderPlayer(player); }
-                    if(!slime.isDead()) { renderer.renderMonster(slime); }
                 }
         );
         renderer.end();
