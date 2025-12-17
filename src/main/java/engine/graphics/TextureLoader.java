@@ -1,5 +1,7 @@
 package engine.graphics;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,7 +12,26 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class TextureLoader {
 
+    private static Map<String, Integer> textureCache = new HashMap<>();
+
     public static int loadTexture(String path) {
+        // Vérifier si la texture est déjà en cache
+        if (textureCache.containsKey(path)) {
+            return textureCache.get(path);
+        }
+
+        // Charger la texture (votre code existant)
+        int textureId = loadTextureFromFile(path);
+
+        // Mettre en cache
+        textureCache.put(path, textureId);
+
+        return textureId;
+    }
+
+    private static int loadTextureFromFile(String path) {
+        // Votre code de chargement existant ici
+        // ...
         try {
             BufferedImage image = ImageIO.read(new File(path));
             int width = image.getWidth();
@@ -53,5 +74,9 @@ public class TextureLoader {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public static void clearCache() {
+        textureCache.clear();
     }
 }

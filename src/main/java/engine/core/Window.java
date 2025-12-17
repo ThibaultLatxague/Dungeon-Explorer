@@ -57,8 +57,18 @@ public class Window {
         glfwPollEvents();
     }
 
+    /**
     public void updateAspectRatio() {
         this.aspectRatio = (float) getWidth() / (float) getHeight();
+    }**/
+
+    public void updateAspectRatio() {
+        // Éviter la division par zéro
+        if (height > 0) {
+            this.aspectRatio = (float) width / (float) height;
+        } else {
+            this.aspectRatio = 1f; // Valeur par défaut
+        }
     }
 
     public boolean shouldClose() {

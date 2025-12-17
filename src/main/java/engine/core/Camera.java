@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 public class Camera {
 
-    private float x, y;           // Position de la caméra
+    private float x = 0.1f, y = 0.1f;           // Position de la caméra
     private float zoom;           // Niveau de zoom (1.0 = normal)
     private float smoothness;     // Lissage du mouvement (0.0 à 1.0)
 

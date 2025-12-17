@@ -6,6 +6,7 @@ import engine.core.Window;
 import engine.graphics.TextRenderer;
 import engine.graphics.SpriteRenderer;
 import engine.core.Input;
+import engine.world.world.TileMap;
 import game.monsters.types.Slime.Slime;
 import game.player.Player;
 import game.player.PlayerController;
@@ -36,6 +37,8 @@ public class Main {
         TextRenderer textRenderer = new TextRenderer("src/main/resources/fonts/Consolas.ttf", 16);
         Camera camera = new Camera();
         camera.setSmoothness(0.08f); // Plus la valeur est basse, plus le suivi est lisse
+        TileMap world = new TileMap();
+        world.generate();
 
         //float deltaTime = 0.002f;
 
@@ -54,6 +57,7 @@ public class Main {
         // GAME LOOP
         // ========================
         renderer.begin();
+        //renderer.renderWorld(world);
         GameLoop gameLoop = new GameLoop(
                 window,
 
@@ -77,27 +81,26 @@ public class Main {
                     // === RENDU DU JEU (avec caméra) ===
                     camera.applyTransform(window);
 
+                    // Rendu du monde APRÈS avoir appliqué la caméra
+                    //renderer.renderWorld(world, camera, window);
+                    renderer.renderWorldNoCulling(world, window);
+
                     // Rendu des entités
                     if(player.isAlive()) { renderer.renderPlayer(player); }
                     if(!slime.isDead()) { renderer.renderMonster(slime); }
 
                     // === RENDU DU HUD (par-dessus, sans caméra) ===
-                    // Sauvegarder l'état de projection actuel
                     glMatrixMode(GL_PROJECTION);
                     glPushMatrix();
                     glLoadIdentity();
-
-                    // Projection en pixels pour le HUD
                     glOrtho(0, window.getWidth(), 0, window.getHeight(), -1, 1);
 
                     glMatrixMode(GL_MODELVIEW);
                     glPushMatrix();
                     glLoadIdentity();
 
-                    // Rendu du HUD (en dernier pour être au-dessus)
                     debugHUD.render(0);
 
-                    // Restaurer les matrices
                     glMatrixMode(GL_PROJECTION);
                     glPopMatrix();
                     glMatrixMode(GL_MODELVIEW);
