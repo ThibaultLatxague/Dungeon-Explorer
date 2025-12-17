@@ -7,12 +7,14 @@ public class Item {
     private int stackSize;
     private ItemCategory itemCategory;
     private ItemRarity itemRarity;
+    private String texture;
 
-    public Item(String name, int stackSize, ItemCategory itemCategory, ItemRarity itemRarity) {
+    public Item(String name, int stackSize, ItemCategory itemCategory, ItemRarity itemRarity, String texture) {
         this.name = name;
         this.stackSize = stackSize;
         this.itemCategory = itemCategory;
         this.itemRarity = itemRarity;
+        this.texture = texture;
     }
 
     // ========================
@@ -38,5 +40,9 @@ public class Item {
 
     public void setItemRarity(ItemRarity itemRarity) {
         this.itemRarity = itemRarity;
+    }
+
+    public String getTexture() {
+        return this.texture;
     }
 }

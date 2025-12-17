@@ -4,8 +4,8 @@ import game.utils.Enums;
 
 public class TileMap {
     private Tile[][] map;
-    private float height = 10;
-    private float width = 10;
+    private float height = 100;
+    private float width = 100;
 
     public void generate() {
 

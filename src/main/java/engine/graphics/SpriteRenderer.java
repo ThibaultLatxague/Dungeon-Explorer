@@ -234,8 +234,6 @@ public class SpriteRenderer {
     }
 
     public void renderWorldNoCulling(TileMap map, Window window) {
-        System.out.println("=== RENDER ALL TILES (NO CULLING) ===");
-
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -243,22 +241,12 @@ public class SpriteRenderer {
         float height = map.getHeight();
         float width = map.getWidth();
 
-        System.out.println("Map size: " + width + "x" + height);
-
-        int tilesRendered = 0;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Tile tile = map.getMap()[i][j];
-                if (tilesRendered < 5) {
-                    System.out.println("Tile [" + i + "][" + j + "] at (" + tile.getX() + ", " + tile.getY() + ") size: " + tile.getWidth() + "x" + tile.getHeight());
-                }
                 renderTile(tile, window);
-                tilesRendered++;
             }
         }
-
-        System.out.println("Total rendered: " + tilesRendered + " tiles");
-
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_BLEND);
     }
