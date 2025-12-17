@@ -1,6 +1,7 @@
 package engine.core;
 
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWFramebufferSizeCallback;
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -34,7 +35,20 @@ public class Window {
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        // Callback pour le redimensionnement
+        setupResizeCallback();
+
         update();
+    }
+
+    private void setupResizeCallback() {
+        glfwSetFramebufferSizeCallback(window, (win, w, h) -> {
+            this.width = w;
+            this.height = h;
+            glViewport(0, 0, w, h);
+            updateAspectRatio();
+        });
     }
 
     public void update() {
