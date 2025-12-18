@@ -33,6 +33,7 @@ public class Monster{
     private float velocityX = 0;
     private float velocityY = 0;
     private float attackTimer = 0f;
+    private String texture;
     // TODO : LootTable
 
     private final RandomUtils random = new RandomUtils();
@@ -178,6 +179,7 @@ public class Monster{
     public float getSpeed() { return this.speed; }
     public String getName() { return this.name; }
     public float getAttackSpeed() { return this.attackSpeed; }
+    public String getTexture() { return this.texture; }
 
     public void setX(float x) { this.x = x; }
     public void setY(float y) { this.y = y; }
@@ -196,4 +198,5 @@ public class Monster{
     public void setAttackSpeed(float a) { this.attackSpeed = a; }
     public void setDamageMin(float dM) { this.damageMin = dM; }
     public void setDamageMax(float dM) { this.damageMax = dM; }
+    public void setTexture(String t) { this.texture = t; }
 }

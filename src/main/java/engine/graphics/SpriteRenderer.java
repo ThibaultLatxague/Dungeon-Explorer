@@ -119,11 +119,9 @@ public class SpriteRenderer {
         renderOutlineCircle(x+w/2, y+h/2, player.getWeapon().getAttackRange());
     }
 
-    public void renderMonster(Monster monster){
-        /**
-         * TODO
-         * Render a monster
-         */
+    public void renderMonster(Monster monster, String texturePath){
+        int textureId = TextureLoader.loadTexture(texturePath);
+
         // Monster values
         float x = monster.getX();
         float y = monster.getY();
@@ -133,8 +131,16 @@ public class SpriteRenderer {
         float correctedX = x / getWindow().getAspectRatio();
         float correctedW = w / getWindow().getAspectRatio();
 
-        // Joueur = carré rouge
-        glColor3f(1f, 1f, 1f);
+        // Activer les textures
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureId);
+
+        // Activer la transparence (si ton image a un canal alpha)
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        // Couleur blanche pour ne pas teinter la texture
+        // glColor3f(1.0f, 1.0f, 1.0f);
 
         glBegin(GL_QUADS);
         // Coin bas-gauche
@@ -153,6 +159,9 @@ public class SpriteRenderer {
         glTexCoord2f(0, 0);
         glVertex2f(correctedX, y + h);
         glEnd();
+
+        glDisable(GL_TEXTURE_2D);
+        glDisable(GL_BLEND);
 
         renderOutlineCircle(x+w/2, y+h/2, monster.getAggroRange());
         renderOutlineCircle(x+w/2, y+h/2, monster.getAttackRange());

@@ -87,7 +87,7 @@ public class Main {
 
                     // Rendu des entités
                     if(player.isAlive()) { renderer.renderPlayer(player); }
-                    if(!slime.isDead()) { renderer.renderMonster(slime); }
+                    if(!slime.isDead()) { renderer.renderMonster(slime, slime.getTexture()); }
 
                     // === RENDU DU HUD (par-dessus, sans caméra) ===
                     glMatrixMode(GL_PROJECTION);

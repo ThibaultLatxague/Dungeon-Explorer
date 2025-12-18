@@ -6,9 +6,10 @@ import game.utils.RandomUtils;
 
 public class Slime extends Monster {
     private final RandomUtils random = new RandomUtils();
+    private String texture = "";
 
     public Slime(){
-
+        setTexture("src/main/resources/textures/monsters/slime/slime.png");
         setInitialHealth(70,100);
         Log.log.info("SLIME HEALTH: " + getHealth());
         setX(0.5f);
