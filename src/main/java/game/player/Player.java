@@ -1,4 +1,5 @@
 package game.player;
+import game.inventory.PlayerInventory;
 import game.items.weapons.Weapon;
 import game.items.weapons.types.sword.Sword;
 import game.monsters.Monster;
@@ -21,6 +22,7 @@ public class Player {
     private boolean isDead = false;
     private float speed = 1f;
     private Weapon weapon;
+    private PlayerInventory inventory = new PlayerInventory(20);
 
     //TODO : A supprimer ?
     private float attackTimer = 0f;
@@ -102,6 +104,7 @@ public class Player {
     public float getSpeed() { return this.speed; }
     public Weapon getWeapon() { return this.weapon; }
     public float getAttackTimer() { return attackTimer; }
+    public PlayerInventory getInventory() { return inventory; }
 
     public void setHealth(float h){ this.health = h; }
     public void setHeight(float h){ this.height = h; }

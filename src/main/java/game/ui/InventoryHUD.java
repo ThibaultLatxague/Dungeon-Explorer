@@ -1,30 +1,32 @@
 package game.ui;
 
+import engine.graphics.Renderer;
 import game.inventory.Inventory;
 import game.items.Item;
+import game.utils.Log;
 
 public class InventoryHUD {
     private final Inventory inventory;
     private boolean visible = false;
 
-    private final int slotSize = 48;
-    private final int columns = 5;
+    private final float slotSize = 48;
+    private final float columns = 5;
 
     public InventoryHUD(Inventory inventory) {
         this.inventory = inventory;
     }
 
     public void toggle() {
+        Log.log.info("HUD toggled");
         visible = !visible;
     }
 
-    /**
-    public void render(Renderer renderer, int startX, int startY) {
+    public void render(Renderer renderer, float startX, float startY) {
         if (!visible) return;
 
-        int x = startX;
-        int y = startY;
-        int index = 0;
+        float x = startX;
+        float y = startY;
+        float index = 0;
 
         for (Item item : inventory.getItems()) {
 
@@ -42,5 +44,5 @@ public class InventoryHUD {
                 y -= slotSize;
             }
         }
-    }**/
+    }
 }

@@ -1,5 +1,6 @@
 package game.items;
 
+import engine.graphics.Texture;
 import game.utils.Enums.*;
 
 public class Item {
@@ -7,15 +8,15 @@ public class Item {
     private int stackSize;
     private ItemCategory itemCategory;
     private ItemRarity itemRarity;
-    private String texture;
-
-    public Item(String name, int stackSize, ItemCategory itemCategory, ItemRarity itemRarity, String texture) {
+    private Texture texture;
+/**
+    public Item(String name, int stackSize, ItemCategory itemCategory, ItemRarity itemRarity, Texture texture) {
         this.name = name;
         this.stackSize = stackSize;
         this.itemCategory = itemCategory;
         this.itemRarity = itemRarity;
         this.texture = texture;
-    }
+    }**/
 
     // ========================
     // OPTIONS
@@ -42,7 +43,9 @@ public class Item {
         this.itemRarity = itemRarity;
     }
 
-    public String getTexture() {
+    public void setTexture(Texture texture) { this.texture = texture; }
+
+    public Texture getTexture() {
         return this.texture;
     }
 }

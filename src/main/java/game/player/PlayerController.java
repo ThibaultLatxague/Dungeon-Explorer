@@ -107,6 +107,10 @@ public class PlayerController {
         }
     }
 
+    public boolean isOpeningInventory(){
+        return input.inventoryIsOpen();
+    }
+
     // ========================
     // OPTIONS
     // ========================

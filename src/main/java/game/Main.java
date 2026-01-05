@@ -3,14 +3,18 @@ package game;
 import engine.core.Camera;
 import engine.core.GameLoop;
 import engine.core.Window;
+import engine.graphics.Renderer;
 import engine.graphics.TextRenderer;
 import engine.graphics.SpriteRenderer;
 import engine.core.Input;
 import engine.world.world.TileMap;
+import game.items.Item;
+import game.items.items.Apple;
 import game.monsters.types.Slime.Slime;
 import game.player.Player;
 import game.player.PlayerController;
 import game.ui.DebugHUD;
+import game.ui.InventoryHUD;
 
 import java.io.IOException;
 
@@ -39,6 +43,7 @@ public class Main {
         camera.setSmoothness(0.08f); // Plus la valeur est basse, plus le suivi est lisse
         TileMap world = new TileMap();
         world.generate();
+        Renderer render = new Renderer();
 
         //float deltaTime = 0.002f;
 
@@ -52,6 +57,9 @@ public class Main {
         PlayerController controller = new PlayerController(player, input);
         DebugHUD debugHUD = new DebugHUD(textRenderer, player);
         debugHUD.setTarget(slime);
+        InventoryHUD hud = new InventoryHUD(player.getInventory());
+        Item Apple = new Apple();
+        player.getInventory().addItem(Apple);
 
         // ========================
         // GAME LOOP
@@ -72,6 +80,9 @@ public class Main {
                     controller.update(deltaTime);
                     camera.followPlayer(player.getX(), player.getY(), window);
                     if(!slime.isDead() && player.isAlive()) { slime.update(deltaTime, player); }
+                    if(controller.isOpeningInventory()){
+                        hud.toggle();
+                    }
                 },
 
                 // RENDER
@@ -84,6 +95,7 @@ public class Main {
                     // Rendu du monde APRÈS avoir appliqué la caméra
                     //renderer.renderWorld(world, camera, window);
                     renderer.renderWorldNoCulling(world, window);
+                    hud.render(render, 0, 0);
 
                     // Rendu des entités
                     if(player.isAlive()) { renderer.renderPlayer(player); }

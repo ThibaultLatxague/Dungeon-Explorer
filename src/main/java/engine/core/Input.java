@@ -40,6 +40,10 @@ public class Input {
         return isKeyDown(GLFW_KEY_SPACE) || glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS;
     }
 
+    public boolean inventoryIsOpen() {
+        return isKeyDown(GLFW_KEY_E);
+    }
+
     public boolean pressed(int key){
         return glfwGetKey(window, key) == GLFW_PRESS;
     }
